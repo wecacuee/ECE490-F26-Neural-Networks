@@ -27,32 +27,32 @@ project:
     - file: notebooks/01-py-intro/Python_1.ipynb
       children:
         - file: notebooks/01-py-intro/Python_2.ipynb
+        - file: notebooks/020-linear-models/01-Python_3.ipynb
     - file: tutorials/tip-of-the-iceberg.md
-    - file: notebooks/02-linear-models/00-LinearModels.ipynb
+    - file: notebooks/020-linear-models/00-LinearModels.ipynb
       title: Linear Models
       children:
-        - file: notebooks/02-linear-models/01-Python_3.ipynb
-        - file: notebooks/02-linear-models/02-PlaneFitProblem.ipynb
-    - file: notebooks/02-linear-models/10-ContinuousOptimization.ipynb
+        - file: notebooks/020-linear-models/02-PlaneFitProblem.ipynb
+    - file: notebooks/020-linear-models/10-ContinuousOptimization.ipynb
       title: Continuous Optimization
       children:
-        - file: notebooks/02-linear-models/20-Hessians.ipynb
+        - file: notebooks/020-linear-models/20-Hessians.ipynb
           title: Hessians
           children:
-            - file: notebooks/02-linear-models/30-VisEigenVectors.ipynb
+            - file: notebooks/020-linear-models/30-VisEigenVectors.ipynb
               title: Visualize Eigen Vectors
-    - file: notebooks/02-linear-models/40-Perceptron3.ipynb
+    - file: notebooks/020-linear-models/40-Perceptron3.ipynb
       title: Perceptron
-    - file: "notebooks/04-review/Practice Problems Bank.ipynb"
+    - file: "notebooks/040-review/Practice Problems Bank.ipynb"
     - file: "notebooks/022-prob/ProbabilisticPerspective.ipynb"
-    - file: notebooks/06-pytorch/NumpyTutorial-Pytorched.ipynb
-    - file: "notebooks/06-pytorch/MLP Using Pytorch.ipynb"
-    - file: notebooks/05-mlp/MLP.ipynb
-    - file: "notebooks/08-review/Midterm 2 Review.ipynb"
+    - file: notebooks/060-pytorch/NumpyTutorial-Pytorched.ipynb
+    - file: "notebooks/060-pytorch/MLP Using Pytorch.ipynb"
+    - file: notebooks/050-mlp/MLP.ipynb
+    - file: "notebooks/080-review/Midterm 2 Review.ipynb"
     - file: "notebooks/081-project/Project scope and instructions.ipynb"
-    - file: notebooks/03-autograd/Autograd.ipynb
-    - file: notebooks/03-autograd/AutogradNumpy.ipynb
-    - file: notebooks/13-review/review.ipynb
+    - file: notebooks/030-autograd/Autograd.ipynb
+    - file: notebooks/030-autograd/AutogradNumpy.ipynb
+    - file: notebooks/130-review/review.ipynb
 
 #    - file: notebooks/021-decision-theory/2008-bertsekas-prob-Ch9-P20.md
 #    - file: notebooks/04-review/Midterm1-S24.ipynb

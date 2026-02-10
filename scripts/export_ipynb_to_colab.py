@@ -28,7 +28,7 @@ if __name__ == '__main__':
     colab_filepath = colab_filepath_create(nbfilepath)
     mathaliasesnotebook = osp.join(
             osp.dirname(__file__ or "."),
-            "templates/math-aliases.ipynb")
+            "../templates/math-aliases.ipynb")
     main(sys.argv[1], 
          mathaliasesnotebook,
          ensuredirs(colab_filepath))
