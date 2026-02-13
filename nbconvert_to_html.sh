@@ -1,2 +1,3 @@
-find notebooks/ -name '*Colab.ipynb' ! \( -path '*.ipynb_checkpoints*' \) alttextify \{} examples_with_alt -s html \;
-find notebooks/ -name '*Colab.ipynb' ! \( -path '*.ipynb_checkpoints*' \) -exec jupyter nbconvert \{} --to html --TagRemovePreprocessor.enabled=True --TagRemovePreprocessor.remove_cell_tags 'hide-cell' --TagRemovePreprocessor.remove_input_tags 'hide-input'  --TagRemovePreprocessor.remove_all_output_tags 'hide-output' --embed-images --theme jupyterlab-theme-githublight --output-dir build-html/ \;
+jupyter nbconvert --to html --theme jupyterlab-theme-githublight \
+    --config $(dirname $0)/nbconvert_config.py \
+        --output-dir build-html/ "$@"

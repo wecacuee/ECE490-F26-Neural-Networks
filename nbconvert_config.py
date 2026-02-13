@@ -1,0 +1,9 @@
+c.HTMLExporter.mathjax_url = "https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js"
+c.HTMLExporter.embed_images = True
+c.HTMLExporter.theme = "jupyterlab-theme-githublight"
+c.TemplateExporter.template_name = "accessible-lab"
+c.TagRemovePreprocessor.enabled=True
+c.TagRemovePreprocessor.remove_input_tags = {"hide-input"}
+c.TagRemovePreprocessor.remove_all_outputs_tags = {"hide-output"}
+c.TagRemovePreprocessor.remove_cell_tags = {"hide-cell"}
+c.Application.log_level = 0

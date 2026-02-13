@@ -7,3 +7,5 @@ plotly
 mystmd
 otter-grader
 playwright
+matplotalt
+jupyterlab-accessible-themes
