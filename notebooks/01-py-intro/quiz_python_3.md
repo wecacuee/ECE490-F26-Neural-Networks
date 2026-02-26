@@ -5,7 +5,7 @@ Title: ndarray Meaning
 Points: 1
 1. What is the output of `type(numpy.array([1, 2]))`
 a) `<class 'numpy.array'>`
-*b)`<class 'numpy.ndarray'>`
+*b) `<class 'numpy.ndarray'>`
 c) `<class 'numpy.matrix'>`
 d) `<class 'numpy.tensor'>`
 
