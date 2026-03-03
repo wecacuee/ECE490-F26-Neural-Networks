@@ -12,11 +12,17 @@ def yaml_load(config_yaml="myst.yml"):
         data = load(cyf, Loader=Loader)
     return dict(repo_name=data['project']['github'])
 
-OPEN_IN_COLAB_STRING="<a href='https://colab.research.google.com/github/{repo_name}/blob/master/{file_path}'><span>OPEN IN COLAB</span></a> "
+OPEN_IN_COLAB_STRING="""
+<div><a 
+    target='_blank'
+    href='https://colab.research.google.com/github/{repo_name}/blob/master/{file_path}'
+    >
+<span>OPEN IN COLAB</span></a></div>
+"""
 
 def main(notebookpath, mathaliasesnotebook, exportpath, config_yaml):
     variables = yaml_load(config_yaml)
-    variables.update(dict(file_path=notebookpath))
+    variables.update(dict(file_path=colab_filepath_create(notebookpath)))
     with (open(notebookpath) as nbfp,
           open(mathaliasesnotebook) as mafp):
         nb = nbformat.read(nbfp, 4)
@@ -38,7 +44,7 @@ def ensuredirs(path):
 def colab_filepath_create(nfilepath):
     root, ext = osp.splitext(osp.basename(nbfilepath))
     return osp.join(osp.dirname(sys.argv[1]), "exports",
-                    f"{root} Colab{ext}")
+                        f"{root}Colab{ext}")
 
 if __name__ == '__main__':
     import sys

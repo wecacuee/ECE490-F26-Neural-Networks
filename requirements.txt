@@ -9,3 +9,4 @@ otter-grader
 playwright
 matplotalt
 jupyterlab-accessible-themes
+jupyterlab-a11y-checker
