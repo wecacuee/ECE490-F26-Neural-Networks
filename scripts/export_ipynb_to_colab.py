@@ -43,8 +43,7 @@ def ensuredirs(path):
 
 def colab_filepath_create(nfilepath):
     root, ext = osp.splitext(osp.basename(nbfilepath))
-    return osp.join(osp.dirname(sys.argv[1]), "exports",
-                        f"{root}Colab{ext}")
+    return osp.join(osp.dirname(sys.argv[1]), f"exports-{root}Colab{ext}")
 
 if __name__ == '__main__':
     import sys

@@ -12,55 +12,55 @@ all: build-html/00-LinearModelsColab.html \
 	build-pdf/40-Perceptron3.pdf \
 	$(QUIZ_ZIPS)
 
-notebooks/020-linear-models/exports/10-ContinuousOptimizationColab.ipynb: notebooks/020-linear-models/10-ContinuousOptimization.ipynb
+notebooks/020-linear-models/exports-10-ContinuousOptimizationColab.ipynb: notebooks/020-linear-models/10-ContinuousOptimization.ipynb
 	python3 scripts/export_ipynb_to_colab.py $<
 
-notebooks/020-linear-models/exports/40-Perceptron3Colab.ipynb: notebooks/020-linear-models/40-Perceptron3.ipynb
+notebooks/020-linear-models/exports-40-Perceptron3Colab.ipynb: notebooks/020-linear-models/40-Perceptron3.ipynb
 	python3 scripts/export_ipynb_to_colab.py $<
 
-notebooks/020-linear-models/exports/00-LinearModelsColab.ipynb: notebooks/020-linear-models/00-LinearModels.ipynb
+notebooks/020-linear-models/exports-00-LinearModelsColab.ipynb: notebooks/020-linear-models/00-LinearModels.ipynb
 	python3 scripts/export_ipynb_to_colab.py $<
 
-notebooks/020-linear-models/exports/02-PlaneFitProblemColab.ipynb: notebooks/020-linear-models/02-PlaneFitProblem.ipynb
+notebooks/020-linear-models/exports-02-PlaneFitProblemColab.ipynb: notebooks/020-linear-models/02-PlaneFitProblem.ipynb
 	python3 scripts/export_ipynb_to_colab.py $<
 
-build-html/10-ContinuousOptimization.html: notebooks/020-linear-models/exports/10-ContinuousOptimizationColab.ipynb
+build-html/10-ContinuousOptimization.html: notebooks/020-linear-models/exports-10-ContinuousOptimizationColab.ipynb
 	jupyter nbconvert --to html --embed-images \
 		--theme jupyterlab-theme-githublight \
     	--config ./nbconvert_config.py \
         --output-dir "$(@D)" "$<"
 
-build-pdf/10-ContinuousOptimization.pdf: notebooks/020-linear-models/exports/10-ContinuousOptimizationColab.ipynb
+build-pdf/10-ContinuousOptimization.pdf: notebooks/020-linear-models/exports-10-ContinuousOptimizationColab.ipynb
 	jupyter nbconvert --to webpdf --embed-images \
 		--theme jupyterlab-theme-githublight \
     	--config ./nbconvert_config.py \
         --output-dir "$(@D)" "$<"
 
-build-html/40-Perceptron3.html: notebooks/020-linear-models/exports/40-Perceptron3Colab.ipynb
+build-html/40-Perceptron3.html: notebooks/020-linear-models/exports-40-Perceptron3Colab.ipynb
 	jupyter nbconvert --to html --embed-images \
 		--theme jupyterlab-theme-githublight \
     	--config ./nbconvert_config.py \
         --output-dir "$(@D)" "$<"
 
-build-pdf/40-Perceptron3.pdf: notebooks/020-linear-models/exports/40-Perceptron3Colab.ipynb
+build-pdf/40-Perceptron3.pdf: notebooks/020-linear-models/exports-40-Perceptron3Colab.ipynb
 	jupyter nbconvert --to webpdf --embed-images \
 		--theme jupyterlab-theme-githublight \
     	--config ./nbconvert_config.py \
         --output-dir "$(@D)" "$<"
 
-build-html/00-LinearModelsColab.html: notebooks/020-linear-models/exports/00-LinearModelsColab.ipynb
+build-html/00-LinearModelsColab.html: notebooks/020-linear-models/exports-00-LinearModelsColab.ipynb
 	jupyter nbconvert --to html --embed-images \
 		--theme jupyterlab-theme-githublight \
     	--config ./nbconvert_config.py \
         --output-dir "$(@D)" "$<"
 
-build-html/02-PlaneFitProblemColab.html: notebooks/020-linear-models/exports/02-PlaneFitProblemColab.ipynb
+build-html/02-PlaneFitProblemColab.html: notebooks/020-linear-models/exports-02-PlaneFitProblemColab.ipynb
 	jupyter nbconvert --to html --embed-images \
 		--theme jupyterlab-theme-githublight \
     	--config ./nbconvert_config.py \
         --output-dir "$(@D)" "$<"
 
-build-pdf/00-LinearModelsColab.pdf: notebooks/020-linear-models/exports/00-LinearModelsColab.ipynb
+build-pdf/00-LinearModelsColab.pdf: notebooks/020-linear-models/exports-00-LinearModelsColab.ipynb
 	jupyter nbconvert --to webpdf --embed-images  \
 		--theme jupyterlab-theme-githublight \
     	--config ./nbconvert_config.py \
