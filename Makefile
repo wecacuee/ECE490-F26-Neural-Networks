@@ -1,7 +1,10 @@
 QUIZ_MDS := $(wildcard notebooks/*/quiz_*.md)
 QUIZ_ZIPS := $(QUIZ_MDS:.md=.zip)
 
-all: build-html/00-LinearModelsColab.html \
+all: \
+	build-html/ProbabilisticPerspective.html \
+	build-pdf/ProbabilisticPerspective.pdf \
+	build-html/00-LinearModelsColab.html \
 	build-pdf/00-LinearModelsColab.pdf \
 	build-html/02-PlaneFitProblemColab.html \
 	build-html/Practice\ Problems\ Bank.html \
@@ -11,6 +14,9 @@ all: build-html/00-LinearModelsColab.html \
 	build-html/40-Perceptron3.html \
 	build-pdf/40-Perceptron3.pdf \
 	$(QUIZ_ZIPS)
+
+notebooks/022-prob/exports-ProbabilisticPerspectiveColab.ipynb: notebooks/022-prob/ProbabilisticPerspective.ipynb
+	python3 scripts/export_ipynb_to_colab.py $<
 
 notebooks/020-linear-models/exports-10-ContinuousOptimizationColab.ipynb: notebooks/020-linear-models/10-ContinuousOptimization.ipynb
 	python3 scripts/export_ipynb_to_colab.py $<
@@ -23,6 +29,19 @@ notebooks/020-linear-models/exports-00-LinearModelsColab.ipynb: notebooks/020-li
 
 notebooks/020-linear-models/exports-02-PlaneFitProblemColab.ipynb: notebooks/020-linear-models/02-PlaneFitProblem.ipynb
 	python3 scripts/export_ipynb_to_colab.py $<
+####################################################3
+
+build-html/ProbabilisticPerspective.html: notebooks/022-prob/exports-ProbabilisticPerspectiveColab.ipynb
+	jupyter nbconvert --to html --embed-images \
+		--theme jupyterlab-theme-githublight \
+    	--config ./nbconvert_config.py \
+        --output-dir "$(@D)" "$<"
+
+build-pdf/ProbabilisticPerspective.pdf: notebooks/022-prob/exports-ProbabilisticPerspectiveColab.ipynb
+	jupyter nbconvert --to webpdf --embed-images \
+		--theme jupyterlab-theme-githublight \
+    	--config ./nbconvert_config.py \
+        --output-dir "$(@D)" "$<"
 
 build-html/10-ContinuousOptimization.html: notebooks/020-linear-models/exports-10-ContinuousOptimizationColab.ipynb
 	jupyter nbconvert --to html --embed-images \
