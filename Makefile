@@ -2,6 +2,14 @@ QUIZ_MDS := $(wildcard notebooks/*/quiz_*.md)
 QUIZ_ZIPS := $(QUIZ_MDS:.md=.zip)
 
 all: \
+	build-html/40-Perceptron3Solution.html \
+	build-pdf/40-Perceptron3Solution.pdf \
+	build-pdf/PerceptronSGDImplemented.pdf \
+	build-html/PerceptronSGDImplemented.html \
+	build-pdf/PerceptronSGDImplemented.pdf \
+	build-html/PerceptronUsingPytorch.html \
+	build-pdf/PerceptronUsingPytorch.pdf \
+	build-pdf/ProbabilityBasics.pdf \
 	build-html/ProbabilityBasics.html \
 	build-pdf/ProbabilityBasics.pdf \
 	build-html/ProbabilisticPerspective.html \
@@ -15,12 +23,22 @@ all: \
 	build-pdf/10-ContinuousOptimization.pdf \
 	build-html/40-Perceptron3.html \
 	build-pdf/40-Perceptron3.pdf \
+	build-html/ProjectScopeAndInstructions.html \
+	build-pdf/ProjectScopeAndInstructions.pdf \
+	build-html/LayersBlocksModels.html \
+	build-pdf/LayersBlocksModels.pdf \
+	build-html/MLPUsingPytorch.html \
+	build-pdf/MLPUsingPytorch.pdf \
 	$(QUIZ_ZIPS)
 
-notebooks/022-prob/exports-ProbabilityBasicsColab.ipynb: notebooks/022-prob/ProbabilityBasics.ipynb
+.PRECIOUS: notebooks/045-layers-blocks-models/exports-MLPUsingPytorchColab.ipynb
+notebooks/045-layers-blocks-models/exports-%Colab.ipynb: notebooks/045-layers-blocks-models/%.ipynb
 	python3 scripts/export_ipynb_to_colab.py $<
 
-notebooks/022-prob/exports-ProbabilisticPerspectiveColab.ipynb: notebooks/022-prob/ProbabilisticPerspective.ipynb
+notebooks/081-project/exports-%Colab.ipynb: notebooks/081-project/%.ipynb
+	python3 scripts/export_ipynb_to_colab.py $<
+
+notebooks/022-prob/exports-%Colab.ipynb: notebooks/022-prob/%.ipynb
 	python3 scripts/export_ipynb_to_colab.py $<
 
 notebooks/020-linear-models/exports-10-ContinuousOptimizationColab.ipynb: notebooks/020-linear-models/10-ContinuousOptimization.ipynb
@@ -36,25 +54,37 @@ notebooks/020-linear-models/exports-02-PlaneFitProblemColab.ipynb: notebooks/020
 	python3 scripts/export_ipynb_to_colab.py $<
 ####################################################3
 
-build-html/ProbabilityBasics.html: notebooks/022-prob/exports-ProbabilityBasicsColab.ipynb
+build-html/%.html: notebooks/045-layers-blocks-models/exports-%Colab.ipynb
 	jupyter nbconvert --to html --embed-images \
 		--theme jupyterlab-theme-githublight \
     	--config ./nbconvert_config.py \
         --output-dir "$(@D)" --output "$(basename $(@F))" "$<"
 
-build-pdf/ProbabilityBasics.pdf: notebooks/022-prob/exports-ProbabilityBasicsColab.ipynb
+build-pdf/%.pdf: notebooks/045-layers-blocks-models/exports-%Colab.ipynb
 	jupyter nbconvert --to webpdf --embed-images \
 		--theme jupyterlab-theme-githublight \
     	--config ./nbconvert_config.py \
         --output-dir "$(@D)" --output "$(basename $(@F))" "$<"
 
-build-html/ProbabilisticPerspective.html: notebooks/022-prob/exports-ProbabilisticPerspectiveColab.ipynb
+build-html/%.html: notebooks/081-project/exports-%Colab.ipynb
 	jupyter nbconvert --to html --embed-images \
 		--theme jupyterlab-theme-githublight \
     	--config ./nbconvert_config.py \
         --output-dir "$(@D)" --output "$(basename $(@F))" "$<"
 
-build-pdf/ProbabilisticPerspective.pdf: notebooks/022-prob/exports-ProbabilisticPerspectiveColab.ipynb
+build-pdf/%.pdf: notebooks/081-project/exports-%Colab.ipynb
+	jupyter nbconvert --to webpdf --embed-images \
+		--theme jupyterlab-theme-githublight \
+    	--config ./nbconvert_config.py \
+        --output-dir "$(@D)" --output "$(basename $(@F))" "$<"
+
+build-html/%.html: notebooks/022-prob/exports-%Colab.ipynb
+	jupyter nbconvert --to html --embed-images \
+		--theme jupyterlab-theme-githublight \
+    	--config ./nbconvert_config.py \
+        --output-dir "$(@D)" --output "$(basename $(@F))" "$<"
+
+build-pdf/%.pdf: notebooks/022-prob/exports-%Colab.ipynb
 	jupyter nbconvert --to webpdf --embed-images \
 		--theme jupyterlab-theme-githublight \
     	--config ./nbconvert_config.py \
