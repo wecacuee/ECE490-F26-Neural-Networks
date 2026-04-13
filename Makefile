@@ -35,6 +35,7 @@ all: \
 notebooks/045-layers-blocks-models/exports-%Colab.ipynb: notebooks/045-layers-blocks-models/%.ipynb
 	python3 scripts/export_ipynb_to_colab.py $<
 
+.PRECIOUS: notebooks/081-project/exports-ProjectScopeAndInstructionsColab.ipynb
 notebooks/081-project/exports-%Colab.ipynb: notebooks/081-project/%.ipynb
 	python3 scripts/export_ipynb_to_colab.py $<
 
