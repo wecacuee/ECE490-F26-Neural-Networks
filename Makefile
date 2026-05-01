@@ -29,6 +29,14 @@ all: \
 	build-pdf/LayersBlocksModels.pdf \
 	build-html/MLPUsingPytorch.html \
 	build-pdf/MLPUsingPytorch.pdf \
+	build-html/MLP.html \
+	build-pdf/MLP.pdf \
+	build-html/CNN-0411.html \
+	build-pdf/CNN-0411.pdf \
+	build-html/MiniYOLOv1.html \
+	build-pdf/MiniYOLOv1.pdf \
+	build-html/MiniYOLOv2.html \
+	build-pdf/MiniYOLOv2.pdf \
 	$(QUIZ_ZIPS)
 
 .SECONDARY:
@@ -40,6 +48,9 @@ notebooks/081-project/exports-%Colab.ipynb: notebooks/081-project/%.ipynb
 	python3 scripts/export_ipynb_to_colab.py $<
 
 notebooks/022-prob/exports-%Colab.ipynb: notebooks/022-prob/%.ipynb
+	python3 scripts/export_ipynb_to_colab.py $<
+
+notebooks/150-guided-project/exports-%Colab.ipynb: notebooks/150-guided-project/%.ipynb
 	python3 scripts/export_ipynb_to_colab.py $<
 
 notebooks/020-linear-models/exports-10-ContinuousOptimizationColab.ipynb: notebooks/020-linear-models/10-ContinuousOptimization.ipynb
@@ -86,6 +97,18 @@ build-html/%.html: notebooks/022-prob/exports-%Colab.ipynb
         --output-dir "$(@D)" --output "$(basename $(@F))" "$<"
 
 build-pdf/%.pdf: notebooks/022-prob/exports-%Colab.ipynb
+	jupyter nbconvert --to webpdf --embed-images \
+		--theme jupyterlab-theme-githublight \
+    	--config ./nbconvert_config.py \
+        --output-dir "$(@D)" --output "$(basename $(@F))" "$<"
+
+build-html/%.html: notebooks/150-guided-project/exports-%Colab.ipynb
+	jupyter nbconvert --to html --embed-images \
+		--theme jupyterlab-theme-githublight \
+    	--config ./nbconvert_config.py \
+        --output-dir "$(@D)" --output "$(basename $(@F))" "$<"
+
+build-pdf/%.pdf: notebooks/150-guided-project/exports-%Colab.ipynb
 	jupyter nbconvert --to webpdf --embed-images \
 		--theme jupyterlab-theme-githublight \
     	--config ./nbconvert_config.py \
