@@ -2,6 +2,7 @@ QUIZ_MDS := $(wildcard notebooks/*/quiz_*.md)
 QUIZ_ZIPS := $(QUIZ_MDS:.md=.zip)
 
 all: \
+	build-html/what-to-expect.html \
 	build-html/40-Perceptron3Solution.html \
 	build-pdf/40-Perceptron3Solution.pdf \
 	build-pdf/PerceptronSGDImplemented.pdf \
@@ -65,6 +66,12 @@ notebooks/020-linear-models/exports-00-LinearModelsColab.ipynb: notebooks/020-li
 notebooks/020-linear-models/exports-02-PlaneFitProblemColab.ipynb: notebooks/020-linear-models/02-PlaneFitProblem.ipynb
 	python3 scripts/export_ipynb_to_colab.py $<
 ####################################################3
+
+build-html/%.html: notebooks/00-intro/%.ipynb
+	jupyter nbconvert --to html --embed-images \
+		--theme jupyterlab-theme-githublight \
+    	--config ./nbconvert_config.py \
+        --output-dir "$(@D)" --output "$(basename $(@F))" "$<"
 
 build-html/%.html: notebooks/045-layers-blocks-models/exports-%Colab.ipynb
 	jupyter nbconvert --to html --embed-images \
