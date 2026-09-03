@@ -3,6 +3,7 @@ QUIZ_ZIPS := $(QUIZ_MDS:.md=.zip)
 
 all: \
 	build-html/what-to-expect.html \
+	build-html/NumpyTutorial-Pytorched.html \
 	build-html/40-Perceptron3Solution.html \
 	build-pdf/40-Perceptron3Solution.pdf \
 	build-pdf/PerceptronSGDImplemented.pdf \
@@ -68,6 +69,12 @@ notebooks/020-linear-models/exports-02-PlaneFitProblemColab.ipynb: notebooks/020
 ####################################################3
 
 build-html/%.html: notebooks/00-intro/%.ipynb
+	jupyter nbconvert --to html --embed-images \
+		--theme jupyterlab-theme-githublight \
+    	--config ./nbconvert_config.py \
+        --output-dir "$(@D)" --output "$(basename $(@F))" "$<"
+
+build-html/%.html: notebooks/01-py-intro/%.ipynb
 	jupyter nbconvert --to html --embed-images \
 		--theme jupyterlab-theme-githublight \
     	--config ./nbconvert_config.py \
@@ -177,5 +184,5 @@ build-pdf/Practice\ Problems\ Bank.pdf: notebooks/040-review/Practice\ Problems\
         --output-dir build-pdf "$<"
 
 %.zip: %.md
-	pandoc -f markdown+latex_macros+tex_math_dollars -t html --mathml --no-highlight $< -o "$*.html"
+	pandoc -f markdown+latex_macros+tex_math_dollars -t html --mathml --syntax-highlighting=none $< -o "$*.html"
 	text2qti --template=brightspace $<
