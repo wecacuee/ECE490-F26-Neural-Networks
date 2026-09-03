@@ -28,6 +28,7 @@ project:
       children:
         - file: notebooks/01-py-intro/Python_2.ipynb
         - file: notebooks/020-linear-models/01-Python_3.ipynb
+    - file: notebooks/060-pytorch/NumpyTutorial-Pytorched.ipynb
     - file: tutorials/tip-of-the-iceberg.md
     - file: notebooks/020-linear-models/00-LinearModels.ipynb
       title: Linear Models
@@ -45,7 +46,6 @@ project:
       title: Perceptron
     - file: "notebooks/040-review/Practice Problems Bank.ipynb"
     - file: "notebooks/022-prob/ProbabilisticPerspective.ipynb"
-    - file: notebooks/060-pytorch/NumpyTutorial-Pytorched.ipynb
     - file: "notebooks/060-pytorch/MLP Using Pytorch.ipynb"
     - file: notebooks/050-mlp/MLP.ipynb
     - file: "notebooks/080-review/Midterm 2 Review.ipynb"
