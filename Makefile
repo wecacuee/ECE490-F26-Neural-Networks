@@ -35,6 +35,7 @@ all: \
 	build-pdf/MLP.pdf \
 	build-html/CNN-0411.html \
 	build-pdf/CNN-0411.pdf \
+	build-pdf/01-SmallLLM.pdf \
 	build-html/MiniYOLOv1.html \
 	build-pdf/MiniYOLOv1.pdf \
 	build-html/MiniYOLOv2.html \
@@ -44,6 +45,10 @@ all: \
 .SECONDARY:
 
 notebooks/045-layers-blocks-models/exports-%Colab.ipynb: notebooks/045-layers-blocks-models/%.ipynb
+	python3 scripts/export_ipynb_to_colab.py $<
+
+
+notebooks/012-example-llm/exports-%Colab.ipynb: notebooks/012-example-llm//%.ipynb
 	python3 scripts/export_ipynb_to_colab.py $<
 
 notebooks/081-project/exports-%Colab.ipynb: notebooks/081-project/%.ipynb
@@ -68,6 +73,12 @@ notebooks/020-linear-models/exports-02-PlaneFitProblemColab.ipynb: notebooks/020
 	python3 scripts/export_ipynb_to_colab.py $<
 ####################################################3
 
+build-html/%.html: notebooks/012-example-llm/%.ipynb
+	jupyter nbconvert --to html --embed-images \
+		--theme jupyterlab-theme-githublight \
+    	--config ./nbconvert_config.py \
+        --output-dir "$(@D)" --output "$(basename $(@F))" "$<"
+
 build-html/%.html: notebooks/00-intro/%.ipynb
 	jupyter nbconvert --to html --embed-images \
 		--theme jupyterlab-theme-githublight \
@@ -82,6 +93,12 @@ build-html/%.html: notebooks/01-py-intro/%.ipynb
 
 build-html/%.html: notebooks/045-layers-blocks-models/exports-%Colab.ipynb
 	jupyter nbconvert --to html --embed-images \
+		--theme jupyterlab-theme-githublight \
+    	--config ./nbconvert_config.py \
+        --output-dir "$(@D)" --output "$(basename $(@F))" "$<"
+
+build-pdf/%.pdf: notebooks/012-example-llm/exports-%Colab.ipynb
+	jupyter nbconvert --to webpdf --embed-images \
 		--theme jupyterlab-theme-githublight \
     	--config ./nbconvert_config.py \
         --output-dir "$(@D)" --output "$(basename $(@F))" "$<"
