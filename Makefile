@@ -6,6 +6,8 @@ all: \
 	build-html/NumpyTutorial-Pytorched.html \
 	build-html/40-Perceptron3Solution.html \
 	build-pdf/40-Perceptron3Solution.pdf \
+	build-html/50-PerceptronFullD.html \
+	build-pdf/50-PerceptronFullD.pdf \
 	build-pdf/PerceptronSGDImplemented.pdf \
 	build-html/PerceptronSGDImplemented.html \
 	build-pdf/PerceptronSGDImplemented.pdf \
@@ -71,6 +73,10 @@ notebooks/020-linear-models/exports-00-LinearModelsColab.ipynb: notebooks/020-li
 
 notebooks/020-linear-models/exports-02-PlaneFitProblemColab.ipynb: notebooks/020-linear-models/02-PlaneFitProblem.ipynb
 	python3 scripts/export_ipynb_to_colab.py $<
+
+notebooks/020-linear-models/exports-50-PerceptronFullD.ipynb: notebooks/020-linear-models/50-PerceptronFullD.ipynb
+	python3 scripts/export_ipynb_to_colab.py $<
+
 ####################################################3
 
 build-html/%.html: notebooks/012-example-llm/%.ipynb
@@ -164,6 +170,18 @@ build-html/40-Perceptron3.html: notebooks/020-linear-models/exports-40-Perceptro
         --output-dir "$(@D)" --output "$(basename $(@F))" "$<"
 
 build-pdf/40-Perceptron3.pdf: notebooks/020-linear-models/exports-40-Perceptron3Colab.ipynb
+	jupyter nbconvert --to webpdf --embed-images \
+		--theme jupyterlab-theme-githublight \
+    	--config ./nbconvert_config.py \
+        --output-dir "$(@D)" --output "$(basename $(@F))" "$<"
+
+build-html/50-PerceptronFullD.html: notebooks/020-linear-models/exports-50-PerceptronFullDColab.ipynb
+	jupyter nbconvert --to html --embed-images \
+		--theme jupyterlab-theme-githublight \
+    	--config ./nbconvert_config.py \
+        --output-dir "$(@D)" --output "$(basename $(@F))" "$<"
+
+build-pdf/50-PerceptronFullD.pdf: notebooks/020-linear-models/exports-50-PerceptronFullDColab.ipynb
 	jupyter nbconvert --to webpdf --embed-images \
 		--theme jupyterlab-theme-githublight \
     	--config ./nbconvert_config.py \
