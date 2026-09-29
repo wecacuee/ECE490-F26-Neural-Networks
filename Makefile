@@ -23,6 +23,8 @@ all: \
 	build-html/02-PlaneFitProblemColab.html \
 	build-html/Practice\ Problems\ Bank.html \
 	build-pdf/Practice\ Problems\ Bank.pdf \
+	build-html/Practice\ Problems\ F26.html \
+	build-pdf/Practice\ Problems\ F26.pdf \
 	build-html/10-ContinuousOptimization.html \
 	build-pdf/10-ContinuousOptimization.pdf \
 	build-html/40-Perceptron3.html \
@@ -213,6 +215,18 @@ build-html/Practice\ Problems\ Bank.html: notebooks/040-review/Practice\ Problem
         --output-dir build-html/ "$<"
 
 build-pdf/Practice\ Problems\ Bank.pdf: notebooks/040-review/Practice\ Problems\ Bank.ipynb
+	jupyter nbconvert --to webpdf --embed-images \
+		--theme jupyterlab-theme-githublight \
+    	--config ./nbconvert_config.py \
+        --output-dir build-pdf "$<"
+
+build-html/Practice\ Problems\ F26.html: notebooks/040-review/Practice\ Problems\ F26.ipynb
+	jupyter nbconvert --to html --embed-images \
+		--theme jupyterlab-theme-githublight \
+    	--config ./nbconvert_config.py \
+        --output-dir build-html/ "$<"
+
+build-pdf/Practice\ Problems\ F26.pdf: notebooks/040-review/Practice\ Problems\ F26.ipynb
 	jupyter nbconvert --to webpdf --embed-images \
 		--theme jupyterlab-theme-githublight \
     	--config ./nbconvert_config.py \
