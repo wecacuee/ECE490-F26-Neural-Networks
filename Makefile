@@ -37,6 +37,9 @@ all: \
 	build-pdf/MLPUsingPytorch.pdf \
 	build-html/MLP.html \
 	build-pdf/MLP.pdf \
+	build-html/Midterm\ 2\ F26\ Review.html \
+	build-pdf/Midterm\ 2\ F26\ Review.pdf \
+	build-pdf/CNN-0411.pdf \
 	build-html/CNN-0411.html \
 	build-pdf/CNN-0411.pdf \
 	build-pdf/01-SmallLLM.pdf \
@@ -47,6 +50,9 @@ all: \
 	$(QUIZ_ZIPS)
 
 .SECONDARY:
+
+notebooks/080-review/exports-%Colab.ipynb: notebooks/080-review/%.ipynb
+	python3 scripts/export_ipynb_to_colab.py "$<"
 
 notebooks/045-layers-blocks-models/exports-%Colab.ipynb: notebooks/045-layers-blocks-models/%.ipynb
 	python3 scripts/export_ipynb_to_colab.py $<
@@ -81,6 +87,12 @@ notebooks/020-linear-models/exports-50-PerceptronFullD.ipynb: notebooks/020-line
 
 ####################################################3
 
+build-html/%.html: notebooks/080-review/exports-%Colab.ipynb
+	jupyter nbconvert --to html --embed-images \
+		--theme jupyterlab-theme-githublight \
+    	--config ./nbconvert_config.py \
+        --output-dir "$(@D)" --output "$(basename $(@F))" "$<"
+
 build-html/%.html: notebooks/012-example-llm/%.ipynb
 	jupyter nbconvert --to html --embed-images \
 		--theme jupyterlab-theme-githublight \
@@ -101,6 +113,12 @@ build-html/%.html: notebooks/01-py-intro/%.ipynb
 
 build-html/%.html: notebooks/045-layers-blocks-models/exports-%Colab.ipynb
 	jupyter nbconvert --to html --embed-images \
+		--theme jupyterlab-theme-githublight \
+    	--config ./nbconvert_config.py \
+        --output-dir "$(@D)" --output "$(basename $(@F))" "$<"
+
+build-pdf/%.pdf: notebooks/080-review/exports-%Colab.ipynb
+	jupyter nbconvert --to webpdf --embed-images \
 		--theme jupyterlab-theme-githublight \
     	--config ./nbconvert_config.py \
         --output-dir "$(@D)" --output "$(basename $(@F))" "$<"
