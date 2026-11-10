@@ -37,8 +37,6 @@ all: \
 	build-pdf/MLPUsingPytorch.pdf \
 	build-html/MLP.html \
 	build-pdf/MLP.pdf \
-	build-html/Midterm\ 2\ F26\ Review.html \
-	build-pdf/Midterm\ 2\ F26\ Review.pdf \
 	build-pdf/CNN-0411.pdf \
 	build-html/CNN-0411.html \
 	build-pdf/CNN-0411.pdf \
@@ -48,6 +46,8 @@ all: \
 	build-html/MiniYOLOv2.html \
 	build-pdf/MiniYOLOv2.pdf \
 	$(QUIZ_ZIPS)
+	# build-html/Midterm\ 2\ F26\ Review.html \
+	# build-pdf/Midterm\ 2\ F26\ Review.pdf \
 
 .SECONDARY:
 
