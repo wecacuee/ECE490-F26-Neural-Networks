@@ -45,11 +45,19 @@ all: \
 	build-pdf/MiniYOLOv1.pdf \
 	build-html/MiniYOLOv2.html \
 	build-pdf/MiniYOLOv2.pdf \
+	build-html/Transformers.html \
+	build-html/Transformers-blank.html \
+	build-pdf/Transformers.pdf \
+	build-pdf/Transformers-blank.pdf \
 	$(QUIZ_ZIPS)
 	# build-html/Midterm\ 2\ F26\ Review.html \
 	# build-pdf/Midterm\ 2\ F26\ Review.pdf \
 
 .SECONDARY:
+
+
+notebooks/120-transformers/exports-%Colab.ipynb: notebooks/120-transformers/%.ipynb
+	python3 scripts/export_ipynb_to_colab.py "$<"
 
 notebooks/080-review/exports-%Colab.ipynb: notebooks/080-review/%.ipynb
 	python3 scripts/export_ipynb_to_colab.py "$<"
@@ -87,6 +95,12 @@ notebooks/020-linear-models/exports-50-PerceptronFullD.ipynb: notebooks/020-line
 
 ####################################################3
 
+build-html/%.html: notebooks/120-transformers/exports-%Colab.ipynb
+	jupyter nbconvert --to html --embed-images \
+		--theme jupyterlab-theme-githublight \
+    	--config ./nbconvert_config.py \
+        --output-dir "$(@D)" --output "$(basename $(@F))" "$<"
+
 build-html/%.html: notebooks/080-review/exports-%Colab.ipynb
 	jupyter nbconvert --to html --embed-images \
 		--theme jupyterlab-theme-githublight \
@@ -113,6 +127,12 @@ build-html/%.html: notebooks/01-py-intro/%.ipynb
 
 build-html/%.html: notebooks/045-layers-blocks-models/exports-%Colab.ipynb
 	jupyter nbconvert --to html --embed-images \
+		--theme jupyterlab-theme-githublight \
+    	--config ./nbconvert_config.py \
+        --output-dir "$(@D)" --output "$(basename $(@F))" "$<"
+
+build-pdf/%.pdf: notebooks/120-transformers/exports-%Colab.ipynb
+	jupyter nbconvert --to webpdf --embed-images \
 		--theme jupyterlab-theme-githublight \
     	--config ./nbconvert_config.py \
         --output-dir "$(@D)" --output "$(basename $(@F))" "$<"
