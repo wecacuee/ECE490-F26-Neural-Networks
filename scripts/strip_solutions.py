@@ -73,6 +73,30 @@ def make_blank_cell(n_lines, page_break, cell_id=None):
         cell["id"] = cell_id
     return cell
 
+def make_replacement_cell(cell):
+    new_cell_lines = []
+    strip_lines = False
+    for line in cell.get("source", []):
+        if "### BEGIN SOLUTION" in line:
+            strip_lines = True
+            new_cell_lines.append(line)
+        elif "### END SOLUTION" in line:
+            strip_lines = False
+            new_cell_lines.append(line)
+        elif "=" in line and "### SOLUTION STATEMENT" in line:
+            new_line = line[:line.index("=")] + "= ...\n"
+            new_cell_lines.append(new_line)
+        elif strip_lines:
+            pass
+        else:
+            new_cell_lines.append(line)
+    new_cell = cell.copy()
+    new_cell["source"] = new_cell_lines
+    return new_cell
+
+
+
+
 
 def strip_solutions(nb, tag, lines_per_mark, default_lines, min_lines, max_lines, page_break):
     cells = nb["cells"]
@@ -82,12 +106,19 @@ def strip_solutions(nb, tag, lines_per_mark, default_lines, min_lines, max_lines
     for i, cell in enumerate(cells):
         if cell.get("cell_type") == "markdown" and has_tag(cell, tag):
             marks = marks_for_problem(cells[i - 1] if i > 0 else None)
-            total_marks += marks
+            if marks is not None:
+                total_marks += marks
             n_lines = default_lines if marks is None else marks * lines_per_mark
             n_lines = max(min_lines, min(max_lines, n_lines))
             # keep the original cell's id (if any) so the blank cell occupies
             # the same logical slot rather than minting a fresh identity
             new_cells.append(make_blank_cell(n_lines, page_break, cell_id=cell.get("id")))
+            n_replaced += 1
+        elif cell.get("cell_type") == "code" and has_tag(cell, tag):
+            marks = marks_for_problem(cells[i - 1] if i > 0 else None)
+            if marks is not None:
+                total_marks += marks
+            new_cells.append(make_replacement_cell(cell))
             n_replaced += 1
         else:
             new_cells.append(cell)
